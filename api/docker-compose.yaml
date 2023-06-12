@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  mysql-ibuddy:
+    container_name: mysql-ibuddy
+    image: mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=0000  
+      - MYSQL_PASSWORD=0000 
+      - MYSQL_USER=selcuk
+      - MYSQL_DATABASE=array
+    volumes:
+      - ./mysqlDB:/var/lib/meinsql/data
+  phpmyadmin-fishy:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma-ibuddy
+    depends_on:
+        - mysql-ibuddy
+    environment:
+        PMA_HOST: mysql-ibuddy
+    restart: always
+    ports:
+        - 8080:80
